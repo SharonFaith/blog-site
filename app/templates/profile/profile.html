@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
+
+
+{% block styles %}
+    {{super()}}
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+
 {% block content %}
-<div class="container" style="font-family: 'Fredoka One'; color: black;">
+<div class="container-fluid" style="background-color: black;"> 
+    <div class="container" style=" font-family: 'Fredoka One', cursive; background-color: white; color: black;">
     <h1 style="text-align: center;"><strong>{{user.username| capitalize}}</strong></h1>
     <hr>
     <div class="row">
@@ -43,6 +54,7 @@
             {% endif %}
            
             <hr>
+            <h4><a href="/blog/new_post"><button class="btn btn-primary">Add a blog post</button></a></h4><hr>
             <hr>
             
             
@@ -53,7 +65,7 @@
     <div class="row">
         <h2 style="text-align: center;"><strong>My blog posts: </strong></h2>
         <hr>
-        <h4 style="text-align: center;"><a href="/blog/new_post"><button class="btn btn-primary">Add a blog post</button></a></h4><hr>
+        
     </div>
     <div class="row">
         
@@ -94,5 +106,6 @@
             {% endif %}
 
     </div>
+</div>
 </div>
 {% endblock %}
