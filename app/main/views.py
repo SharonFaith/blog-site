@@ -1,16 +1,24 @@
 from flask import render_template, request, redirect, url_for, abort
 from . import main
 from flask_login import login_required, current_user
-from ..models import User
+from ..models import User, Blog
 from .. import db, photos
-from .forms import UpdateProfile
+from .forms import UpdateProfile, BlogForm
 
 @main.route('/')
 def index():
     '''
     View root page function that returns the index page and its data
     '''
-    return render_template('index.html')
+    blogs = Blog.get_all_blogs()
+
+    time_blogs = []
+
+    for blog in blogs:
+        time_blogs.insert(0, blog)
+
+
+    return render_template('index.html', blogs = time_blogs)
 
 @main.route('/user/<uname>', methods = ['GET', 'POST'])
 def profile(uname):
@@ -58,3 +66,21 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile', uname = uname))
+
+
+@main.route('/blog/new_post', methods = ['GET', 'POST'])
+@login_required
+def new_blog():
+    blog_form = BlogForm()
+    
+    if blog_form.validate_on_submit():
+        title = blog_form.title.data
+        content = blog_form.content.data
+
+        new_blogs = Blog(title = title, content = content, user = current_user)
+        new_blogs.save_blog()
+
+        return redirect(url_for('main.index'))
+
+    return render_template('new_blog_post.html', form = blog_form)
+
