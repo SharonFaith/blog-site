@@ -11,7 +11,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site'
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-  #  UPLOADED_PHOTOS_DEST = 'app/static/photos'
+    UPLOADED_PHOTOS_DEST = 'app/static/photos'
    
     # email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
