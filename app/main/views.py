@@ -84,3 +84,16 @@ def new_blog():
 
     return render_template('new_blog_post.html', form = blog_form)
 
+@main.route('/blog/<blog_id>')
+def one_blog(blog_id):
+    blog = Blog.query.filter_by(id = blog_id).first()
+    comments = Comment.get_all_comments()
+    time_comment = []
+    
+    for comment in comments:
+        if comment.blog_id == blog_id:
+            time_comment.insert(0, comment)
+
+    blogs_id = blog_id
+
+    return render_template('blog_post.html', comments = time_comment, blog = blog)

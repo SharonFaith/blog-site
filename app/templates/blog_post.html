@@ -1,6 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container-fluid" style="background-color: black;">
+    <div class="container" style="font-family: 'Noto Sans JP', sans-serif; background-color: white;">
+        <h4><strong>Title: </strong>{{blog.title}}</h4>
+        <hr>
+        <h4><strong>Blog Post: </strong></h4>
+        <h4>{{blog.content}}</h4>
+        <hr>
+        <h4><strong>Comments: </strong></h4>
+        <hr>
+        {% if comments %}
+        <div style="text-align: left;">
+            <br>
+            <a href=""><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
+        </div>
+        <hr>
+        <ul>
+            {% for comment in comments %}
+                
+                <li>
+                    <div class="card">
+                        <div class="card-header">
+                            <p>{{comment.comment_body}}</p>
+                        </div>
+                        <div class="card-footer">
+                            <p>Posted on : {{comment.posted}} (UTC TIME)</p>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </li>
+                <hr>
+                
+            {% endfor %}
+        </ul>
+        {% else %}
+            <h4 style="text-align: center;">No comments yet for this blog post, add one by clicking the button below</h4>
+            <div style="text-align: center;">
+                <br>
+                <a href=""><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
+            </div>
+        {% endif %}
+    </div>
+    </div>
+    
+    
+    
 
 {% endblock %}

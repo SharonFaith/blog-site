@@ -7,13 +7,57 @@
             <h1 style="text-align: center; ">Welcome to Blog Site!</h1>
             <hr>
        
-            <h4 style="text-align: center; ">To post blogs on this site as a writer sign in <a href="/authenticate/login">here</a></h4> 
-            <h4 style="text-align: center; ">Click on any of the blog titles below to read and comment!</h4>
+            <h3 style="text-align: center; "><a href="/blog/new_post"> Add a blog post by clicking here</a>.</h3> 
+            <br>
+            <h4 style="text-align: center;"> To post blogs on this site as a writer you have to sign in <a href="/authenticate/login">here</a></h4> 
+            <hr>
             <h4 style="text-align: center;">A quote for you:</h4>
             <h4></h4>
+            <hr>
+            <h4 style="text-align: center; ">Click on the relevant link of any of the blog posts below to read and comment!</h4>
         </div>
-        
-    
+        <hr>
+    {% if blogs %}
+   
+    <div class="row">
+        {% for blog in blogs %}
+        {% if blog.user != None %}
+        <div class="col-md-12">
+           <div class="col-md-3"></div>
+                <div class="col-md-6" style="padding: 30px;"> 
+                    <div class="card"  style="color: black; background-color:beige;"> 
+                        <div class="class-header" style="text-align: center; background-color: black; padding: 20px;">
+                            <h4 style="font-size: x-large; color: maroon;">{{blog.title}}</h4>
+                            <h3 style="color: maroon; font-size: medium;"><em> ~by {{blog.user}}</em></h3>
+                        </div>
+                        <br>
+                        <div class="card-body" style="text-align: center; font-size: x-large; ">
+                            
+                            <p><a href="/blog/{{blog.id}}" style="font-size: large; color: maroon;">Click here to view blog post and comments</a></p>
+                            <br>
+                            <div class="card-footer" style="font-size: large;">
+                                
+                                <p>Date posted: {{blog.posted}} (UTC TIME)</p>
+                                
+                                <hr>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-3"></div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% else %}
+        <h3 style="text-align: center;">No blogs yet</h3>
+        <div style="text-align: center;">
+            <br>
+            
+            <a href="/blog/new_post"><button class="btn btn-secondary" style="text-align: center;"> Add blog post</button></a>
+        </div>
+    {% endif %}
     
         <div class="row">
         <div class="col-md-6" style="padding: 30px; "> 
