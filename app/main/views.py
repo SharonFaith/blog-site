@@ -3,7 +3,7 @@ from . import main
 from flask_login import login_required, current_user
 from ..models import User, Blog, Comment
 from .. import db, photos
-from .forms import UpdateProfile, BlogForm, NewComment
+from .forms import UpdateProfile, BlogForm, NewComment, DeleteBlog, DeleteComment
 
 @main.route('/')
 def index():
@@ -25,14 +25,22 @@ def profile(uname):
     user = User.query.filter_by(username = uname).first()
 #    form = DeleteUser()
  
-    
-   
+    blogs = Blog.query.filter_by(user_id = user.id).all()
+
+    print(blogs)
+    time_blogs = []
+
+    for blog in blogs:
+        time_blogs.insert(0, blog)
+
+    comments = Comment.get_all_comments()
+
     if user is None:
         abort(404)
     
     else:
 
-        return render_template('profile/profile.html', user = user)
+        return render_template('profile/profile.html', user = user, blogs = time_blogs, comments = comments)
 
 @main.route('/user/<uname>/update', methods = ['GET', 'POST'])
 @login_required
@@ -115,3 +123,20 @@ def new_comments(blog_id):
         return redirect(url_for('main.one_blog', blog_id = blog_id))
 
     return render_template('new_comment.html', form = form)
+
+@main.route('/edit_blog/<blog_id>', methods = ['GET', 'POST'])
+@login_required
+def edit_blog(blog_id):
+    blog = Blog.query.filter_by(id = blog_id).first()
+
+    form = DeleteBlog()
+
+    user = current_user
+
+    if form.validate_on_submit():
+        db.session.delete(blog)
+        db.session.commit()
+
+        return redirect(url_for('main.profile', uname = user.username))
+    
+    return render_template('del_updt.html', form = form, blog = blog)

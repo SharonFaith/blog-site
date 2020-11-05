@@ -51,23 +51,47 @@
     </div>
     <hr>
     <div class="row">
-        <h2 style="text-align: center;"><strong></strong></h2>
-          
+        <h2 style="text-align: center;"><strong>My blog posts: </strong></h2>
+        <hr>
+        <h4 style="text-align: center;"><a href="/blog/new_post"><button class="btn btn-primary">Add a blog post</button></a></h4><hr>
+    </div>
+    <div class="row">
+        
+            {% if blogs %}
+           
+                {% for blog in blogs %}
+
+                    
                      
                     <div class="col-md-6">
                         
                     <div class="card" style="text-align: center;">
                         <div class="card-header">
-                            <h4><span style="color: brown;"></span> </h4>
+                            <h2>Title: {{blog.title}}</h2>
                         </div>
                         <br>
                         <div class="card-body">
-                            <p></p>
+                            <p><a href="/edit_blog/{{blog.id}}" style="font-size: large; color: maroon;">Click here to view and have the option to delete post</a></p>
                         </div>
+                        <div class="card-footer">
+                            {% for comment in comments %}
+                                {% if comment.blog_id == blog.id %}
+                                    <h4>Comment: {{comment.comment_body}} <span><p><a href="">delete comment</a></p></span></h4> &nbsp; 
+                                {% else %}
+                                    <p></p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        
                     </div>
                     <hr>
                     </div>
-                    
+                   
+                
+                {% endfor %}
+            {% else %}            
+                <p>You have no blog posts yet </p>
+            {% endif %}
 
     </div>
 </div>

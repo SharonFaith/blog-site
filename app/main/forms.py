@@ -14,3 +14,9 @@ class BlogForm(FlaskForm):
 class NewComment(FlaskForm):
     comment = TextAreaField('New Comment', validators=[Required()])
     submit = SubmitField('Submit')
+
+class DeleteBlog(FlaskForm):
+    submit = SubmitField('Delete blog post')
+
+class DeleteComment(FlaskForm):
+    submit = SubmitField('Delete comment')
