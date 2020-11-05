@@ -3,7 +3,7 @@ from . import main
 from flask_login import login_required, current_user
 from ..models import User, Blog, Comment
 from .. import db, photos
-from .forms import UpdateProfile, BlogForm
+from .forms import UpdateProfile, BlogForm, NewComment
 
 @main.route('/')
 def index():
@@ -88,12 +88,30 @@ def new_blog():
 def one_blog(blog_id):
     blog = Blog.query.filter_by(id = blog_id).first()
     comments = Comment.get_all_comments()
+    blog_id = blog.id
+    print(comments)
     time_comment = []
     
     for comment in comments:
         if comment.blog_id == blog_id:
             time_comment.insert(0, comment)
 
+    print(time_comment)
     blogs_id = blog_id
 
     return render_template('blog_post.html', comments = time_comment, blog = blog)
+
+@main.route('/blog/<blog_id>/new_comment', methods = ['GET', 'POST'])
+def new_comments(blog_id):
+    form = NewComment()
+    
+
+    if form.validate_on_submit():
+        comment = form.comment.data
+
+        new_comment = Comment(comment_body = comment, blog_id = blog_id)
+        new_comment.save_comment()
+
+        return redirect(url_for('main.one_blog', blog_id = blog_id))
+
+    return render_template('new_comment.html', form = form)

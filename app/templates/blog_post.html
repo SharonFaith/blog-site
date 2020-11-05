@@ -13,7 +13,7 @@
         {% if comments %}
         <div style="text-align: left;">
             <br>
-            <a href=""><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
+            <a href="/blog/{{blog.id}}/new_comment"><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
         </div>
         <hr>
         <ul>
@@ -22,7 +22,7 @@
                 <li>
                     <div class="card">
                         <div class="card-header">
-                            <p>{{comment.comment_body}}</p>
+                            <p>Comment: {{comment.comment_body}}</p>
                         </div>
                         <div class="card-footer">
                             <p>Posted on : {{comment.posted}} (UTC TIME)</p>
@@ -40,7 +40,7 @@
             <h4 style="text-align: center;">No comments yet for this blog post, add one by clicking the button below</h4>
             <div style="text-align: center;">
                 <br>
-                <a href=""><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
+                <a href="/blog/{{blog.id}}/new_comment"><button class="btn btn-secondary" style="text-align: center;"> Add comment</button></a>
             </div>
         {% endif %}
     </div>
