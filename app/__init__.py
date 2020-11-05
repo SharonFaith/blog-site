@@ -27,7 +27,7 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    
+
     #configure UploadSet
     configure_uploads(app, photos)
 
@@ -41,6 +41,9 @@ def create_app(config_name):
     
     
     # Will add the views and forms
+    #setting config
+    from .request import configure_request
+    configure_request(app)
 
 
     return app

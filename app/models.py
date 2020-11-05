@@ -77,3 +77,9 @@ class Comment(db.Model):
     def get_all_comments(cls):
         comments = Comment.query.all()
         return comments
+
+class Quote:
+
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote

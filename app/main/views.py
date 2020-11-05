@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from ..models import User, Blog, Comment
 from .. import db, photos
 from .forms import UpdateProfile, BlogForm, NewComment, DeleteBlog, DeleteComment
+from ..request import get_quotes
 
 @main.route('/')
 def index():
@@ -11,14 +12,15 @@ def index():
     View root page function that returns the index page and its data
     '''
     blogs = Blog.get_all_blogs()
-
+    quote = get_quotes()
+    
     time_blogs = []
 
     for blog in blogs:
         time_blogs.insert(0, blog)
 
 
-    return render_template('index.html', blogs = time_blogs)
+    return render_template('index.html', blogs = time_blogs, quote = quote)
 
 @main.route('/user/<uname>', methods = ['GET', 'POST'])
 def profile(uname):
@@ -157,3 +159,4 @@ def delete_comment(comment_id):
         return redirect(url_for('main.profile', uname = user.username))
     
     return render_template('del_comment.html', form = form, comment = comment)
+
