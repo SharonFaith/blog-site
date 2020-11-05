@@ -76,7 +76,7 @@
                         <div class="card-footer">
                             {% for comment in comments %}
                                 {% if comment.blog_id == blog.id %}
-                                    <h4>Comment: {{comment.comment_body}} <span><p><a href="">delete comment</a></p></span></h4> &nbsp; 
+                                    <h4>Comment: {{comment.comment_body}} <span><p><a href="/blog/comments/{{comment.id}}">delete comment</a></p></span></h4> &nbsp; 
                                 {% else %}
                                     <p></p>
                                 {% endif %}

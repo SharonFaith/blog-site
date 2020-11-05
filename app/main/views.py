@@ -140,3 +140,20 @@ def edit_blog(blog_id):
         return redirect(url_for('main.profile', uname = user.username))
     
     return render_template('del_updt.html', form = form, blog = blog)
+
+@main.route('/blog/comments/<comment_id>', methods = ['GET', 'POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id = comment_id).first()
+
+    form = DeleteComment()
+
+    user = current_user
+
+    if form.validate_on_submit():
+        db.session.delete(comment)
+        db.session.commit()
+
+        return redirect(url_for('main.profile', uname = user.username))
+    
+    return render_template('del_comment.html', form = form, comment = comment)
