@@ -4,11 +4,11 @@ class Config:
     '''
     General configuration parent class
     '''
-#   QUOTES_API_BASE_URL ='http://quotes.stormconsultancy.co.uk/random.json'
+    QUOTES_API_BASE_URL ='http://quotes.stormconsultancy.co.uk/random.json'
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site'
+    #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site'
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST = 'app/static/photos'
@@ -36,8 +36,8 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/'
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site_test'
+    
 
 class DevConfig(Config):
     '''
@@ -46,7 +46,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with general configuration settings
     '''
- #   SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://student:Amazeing16@localhost/blog_site'
     
     DEBUG = True
 
